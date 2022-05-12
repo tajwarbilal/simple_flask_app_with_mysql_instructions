@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Customer</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+<body>
+
+    <div class="main">
+
+        <section class="signup">
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container">
+                <div class="signup-content">
+
+                <!--Customer Form Starts here-->
+                    <form action="/customer" method="post" class="signup-form">
+                        <h2 class="form-title">Sign Up as Customer</h2>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="buildingnumber" id="buildingnumber" placeholder="Building Number"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="street" id="street" placeholder="Building Street"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="city" id="city" placeholder="Building City"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="state" id="state" placeholder="State"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="phonenumber" id="phonenumber" placeholder="Phone Number"/>
+                        </div>
+
+
+                         <div class="form-group">
+                            <input type="text" class="form-input" name="passportno" id="passportno" placeholder="Passport Number"/>
+                         </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="expiration" id="expiration" placeholder="Expiration"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="country" id="country" placeholder="Country"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="dateofbirth" id="dateofbirth" placeholder="Date of Birth"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="cardno" id="cardno" placeholder="Card Number"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                        </div>
+
+                        <p class="loginhere">
+                            Already Have Account ? <a href="/customersignin" class="loginhere-link">Signin here</a>
+                        </p>
+                    </form>
+
+<!--            Customer Form Ends Here-->
+
+
+
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

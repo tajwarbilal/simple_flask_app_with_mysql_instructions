@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Public View</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+<body>
+
+    <div class="main">
+
+        <section class="signup">
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container">
+                <div class="signup-content">
+                    <div class="row">
+
+                        <form action="/" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-input" name="source" id="source" placeholder="AirportName"/>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-input" name="destination" id="destination" placeholder="AirportName"/>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" name="submit"  class="form-submit" value="Search Flight"/>
+                            </div>
+                        </form>
+
+                      <div class="container">
+                          <br><br>
+                          {% if search_result != '' %}
+                              <table class="table" style="width:77%;">
+                                <thead>
+                                <tr>
+                                  <td>Arrival</td>
+                                  <td>Departure </td>
+                                  <td>Fli Number</td>
+                                  <td>Status</td>
+                                  <td>Dep Date</td>
+                                  <td>Arr Date</td>
+                                  <td>Base Price</td>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                 {% for i in search_result %}
+                                  <tr>
+                                    <td>{{i['arrival_airport']}}</td>
+                                    <td>{{i['departure_airport']}}</td>
+                                    <td>{{i['flight_number']}}</td>
+                                    <td>{{i['status']}}</td>
+                                    <td>{{i['departure_date']}}</td>
+                                    <td>{{i['arrival_date']}}</td>
+                                    <td>{{i['base_price']}}</td>
+
+                                  </tr>
+                                 {% endfor %}
+                                </tbody>
+                              </table>
+                          {% endif %}
+                      </div>
+
+                        <form action="/searchflight" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-input" name="flight_number" id="flight_number" placeholder="Flight Number"/>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-input" name="departure_date" id="departure_date" placeholder="Departure"/>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-input" name="arrival_date" id="arrival_date" placeholder="Arival"/>
+                            </div>
+
+                            <div class="col-md-6">
+                                <button class="form-submit">Flight Status</button>
+                            </div>
+                        </form>
+                        <br>
+
+                        <div class="container">
+                        {% if search_flight != '' %}
+                              <table class="table" style="width:77%;">
+                                <thead>
+                                <tr>
+                                  <td>Arrival</td>
+                                  <td>Departure </td>
+                                  <td>Fli Number</td>
+                                  <td>Status</td>
+                                  <td>Dep Date</td>
+                                  <td>Arr Date</td>
+                                  <td>Base Price</td>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                 {% for i in search_flight %}
+                                  <tr>
+                                    <td>{{i['arrival_airport']}}</td>
+                                    <td>{{i['departure_airport']}}</td>
+                                    <td>{{i['flight_number']}}</td>
+                                    <td>{{i['status']}}</td>
+                                    <td>{{i['departure_date']}}</td>
+                                    <td>{{i['arrival_date']}}</td>
+                                    <td>{{i['base_price']}}</td>
+
+                                  </tr>
+                                 {% endfor %}
+                                </tbody>
+                              </table>
+                          {% endif %}
+                        </div>
+
+
+                        <br>
+                        <div class="col-md-6">
+                            <button class="form-submit"><a href="/customer">Customer</a></button>
+                        </div>
+                        <br>
+                        <div class="col-md-6">
+                            <button class="form-submit"><a href="/airlinestaff">Airlinestaff</a></button>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

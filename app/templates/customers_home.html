@@ -1,0 +1,212 @@
+{% extends 'airplanestaff_layout.html' %}
+{% block content %}
+
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#viewflight">View My Flights</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#searchflights">Search For Flights</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#purchaseticket">Purchase Ticket</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#canceltrip">Cancel Trip</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#remakrs">Remarks on Previous Flights</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#trackspendings">Track My Spendings</button>
+    <button class="btn btn-primary"><a href="/logout" style="color:white;">Logout</a></button>
+
+<br><br>
+<div id="trackspendings" class="collapse">
+    <h2>Total Spendings of the User</h2>
+
+
+    {% for i in total_spendings %}
+        <p>{{i['total']}}</p>
+    {% endfor %}
+</div>
+
+
+
+
+<!--    View Flights-->
+<div id="viewflight" class="collapse">
+      <div class="container">
+          <br><br>
+           {% if tickets %}
+              <table class="table" style="width:77%;">
+                <thead>
+                <tr>
+                  <td>customer_email</td>
+                  <td>travel_class</td>
+                  <td>flight_number</td>
+                  <td>Purchase</td>
+                </tr>
+                </thead>
+                <tbody>
+                 {% for i in tickets %}
+                  <tr>
+                    <td>{{i['customer_email']}}</td>
+                    <td>{{i['travel_class']}}</td>
+                    <td>{{i['flight_number']}}</td>
+                    <td>{{i['sold_price']}}</td>
+                  </tr>
+                 {% endfor %}
+                </tbody>
+              </table>
+            {% endif %}
+      </div>
+</div>
+
+
+
+<!--    View Flights-->
+<div id="canceltrip" class="collapse">
+      <div class="container">
+          <br><br>
+              <table class="table" style="width:77%;">
+                <thead>
+                <tr>
+                  <td>customer_email</td>
+                  <td>travel_class</td>
+                  <td>flight_number</td>
+                  <td>Purchase</td>
+                  <td>Status</td>
+                </tr>
+                </thead>
+                <tbody>
+                 {% for i in tickets %}
+                  <tr>
+                    <td>{{i['customer_email']}}</td>
+                    <td>{{i['travel_class']}}</td>
+                    <td>{{i['flight_number']}}</td>
+                    <td>{{i['sold_price']}}</td>
+                    <td><a href="/delete?flightnumber={{i['flight_number']}}">Delete</a></td>
+                  </tr>
+                 {% endfor %}
+                </tbody>
+              </table>
+      </div>
+</div>
+
+
+
+<!--    Create New searchflights-->
+<div id="searchflights" class="collapse">
+<br>
+    <form action="/customersearchflight" method="post">
+        <div class="form-group">
+            <input type="text" class="form-input" name="source" id="source" placeholder="AirportName Source"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="destination" id="destination" placeholder="AirportName Destination"/>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" name="submit"  class="form-submit" value="Search Flight"/>
+        </div>
+    </form>
+
+  <div class="container">
+      <br><br>
+      {% if search_flight != '' %}
+          <table class="table" style="width:77%;">
+            <thead>
+            <tr>
+              <td>Arrival</td>
+              <td>Departure </td>
+              <td>Fli Number</td>
+              <td>Status</td>
+              <td>Dep Date</td>
+              <td>Arr Date</td>
+              <td>Base Price</td>
+
+            </tr>
+            </thead>
+            <tbody>
+             {% for i in search_flight %}
+              <tr>
+                <td>{{i['arrival_airport']}}</td>
+                <td>{{i['departure_airport']}}</td>
+                <td>{{i['flight_number']}}</td>
+                <td>{{i['status']}}</td>
+                <td>{{i['departure_date']}}</td>
+                <td>{{i['arrival_date']}}</td>
+                <td>{{i['base_price']}}</td>
+
+              </tr>
+             {% endfor %}
+            </tbody>
+          </table>
+      {% endif %}
+
+  </div></div>
+
+
+
+<!--    Add purchaseticket -->
+<div id="purchaseticket" class="collapse"><br>
+    <form action="/purchaseticket" method="post">
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="buildingnumber" id="buildingnumber" placeholder="Building Number"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="street" id="street" placeholder="Building Street"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="city" id="city" placeholder="Building City"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="state" id="state" placeholder="State"/>
+        </div>
+
+        <div class="form-group">
+            <select class="form-input" id="travel_class" name="travel_class">
+                <option>Standard</option>
+                <option>Business</option>
+                <option>Economy</option>
+            </select>
+        </div>
+
+       <div class="form-group">
+            <select class="form-input" id="flight_number" name="flight_number">
+                {% for i in flight_result %}
+                      <option>{{i['flight_number']}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+     <div class="form-group">
+         <input type="submit" name="submit" id="submit" class="form-submit" value="Purchase Ticket"/>
+     </div>
+
+
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+<!--    Add New remakrs-->
+<div id="remakrs" class="collapse" >
+    <form action="/remarks" method="post" >
+        {% for i in reviews %}
+            <h3>Flight Number: {{i['flight_number']}} Purchased In this Price : {{i['sold_price']}}</h3>
+            <div class="form-group">
+                <input type="text" class="form-input" name="review" id="review" placeholder="Reviews"/>
+            </div>
+
+             <div class="form-group">
+                 <a class="form-submit" href="/review?user={{user}}&flightnumber={{i['flight_number']}}&price={{i['sold_price']}}">Review</a>
+             </div>
+        {% endfor %}
+
+    </form>
+</div>
+
+
+
+{% endblock %}

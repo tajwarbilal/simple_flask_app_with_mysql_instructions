@@ -1,0 +1,236 @@
+{% extends 'airplanestaff_layout.html' %}
+{% block content %}
+
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#viewflight">View Flights</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#addflights">Create New Flights</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#addairline">Add Airline</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#addairplane">Add Airplane</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#addairport">Add New Airport</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#viewfrequent">View frequent customers</button><br><br>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#addairport">View reports</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#viewearner">View Earned Revenue</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#viewearnerbyclass">View Earned Revenue by travel class</button>
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#topdestination">View Top destinations</button>
+    <button class="btn btn-primary"><a href="/logout" style="color:white;">Logout</a></button>
+
+
+<!--    View Frequent customer-->
+<div id="viewfrequent" class="collapse">
+
+    <h2>Below are the most frequest customer's</h2>
+    {% for i in frequent_user %}
+        <p>{{i}}</p>
+    {% endfor %}
+
+</div>
+
+<!--    View viewearner-->
+<div id="viewearner" class="collapse">
+
+    <h2>Below are the Earn Revenue Till now </h2>
+    <p>{{viewearner}}</p>
+
+</div>
+
+<!--    View viewearnerbyclass-->
+<div id="viewearnerbyclass" class="collapse">
+
+    <h2>Below are the Earn Revenue Till now By Travel Class</h2>
+    <p>{{viewearnerbyclass}}</p>
+
+</div>
+
+
+
+<!--    View topdestination-->
+<div id="topdestination" class="collapse">
+
+    <h2>Below are the Top Destination</h2>
+    <p>{{topdestination}}</p>
+
+</div>
+
+
+<!--    View Flights-->
+<div id="viewflight" class="collapse">
+      <div class="container">
+          <br><br>
+              <table class="table" style="width:77%;">
+                <thead>
+                <tr>
+                  <td>Arrival Airport</td>
+                  <td>Departure Airport</td>
+                  <td>Flight Number</td>
+                  <td>Status</td>
+                  <td>Departure code</td>
+                  <td>Arrival Date</td>
+                  <td>Base Price</td>
+                  <td>Airplane ID</td>
+                </tr>
+                </thead>
+                <tbody>
+                 {% for i in flight %}
+                  <tr>
+                    <td>{{i['arrival_airport']}}</td>
+                    <td>{{i['departure_airport']}}</td>
+                    <td>{{i['flight_number']}}</td>
+                    <td>{{i['status']}}</td>
+                    <td>{{i['departure_date']}}</td>
+                    <td>{{i['arrival_date']}}</td>
+                    <td>{{i['base_price']}}</td>
+                    <td>{{i['airplane_id']}}</td>
+                  </tr>
+                 {% endfor %}
+                </tbody>
+              </table>
+      </div>
+</div>
+
+
+
+
+<!--    Create New Flights-->
+<div id="addflights" class="collapse">
+    <form action="/addflight" method="post">
+        <h2 class="form-title">Add New Flights</h2>
+
+        <div class="form-group">
+                <select class="form-input" id="arrival_airport" name="arrival_airport">
+                    {% for i in airport %}
+                          <option>{{i['name']}}</option>
+                    {% endfor %}
+                </select>
+
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="departure_airport" id="departure_airport" placeholder="departure_airport"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="flight_number" id="flight_number" placeholder="flight_number"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="status" id="status" placeholder="status "/>
+        </div>
+
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="departure_date" id="departure_date" placeholder="departure_date"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="arrival_date" id="arrival_date" placeholder="arrival_date"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="base_price" id="base_price" placeholder="Base Price"/>
+        </div>
+
+        <div class="form-group">
+                <select class="form-input" id="airplane_id" name="airplane_id">
+                    {% for i in airplane %}
+                          <option>{{i['id_number']}}</option>
+                    {% endfor %}
+                </select>
+
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            <input type="submit" name="submit"  class="form-submit" value="Add New Flights"/>
+        </div>
+    </form>
+</div>
+
+
+
+
+<!--    chnage status flights-->
+<!--    Add Airline -->
+<div id="addairline" class="collapse">
+    <form action="/addairline" method="post">
+        <h2 class="form-title">Add New Airline</h2>
+        <div class="form-group">
+            <input type="text" class="form-input" name="airlinename" id="airlinename" placeholder="Enter Airline"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="airplanename" id="airplanename" placeholder="Enter Airplane"/>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" name="submit" class="form-submit" value="Add New Airline"/>
+        </div>
+    </form>
+</div>
+
+
+
+<!--    Add Airplane-->
+<div id="addairplane" class="collapse" >
+    <form action="/addairplane" method="post">
+        <h2 class="form-title">Add New Airplane</h2>
+        <div class="form-group">
+            <input type="text" class="form-input" name="id_no" id="id_no" placeholder="Id"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="airline" id="airline" placeholder="Airline"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="age" id="age" placeholder="Age"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="manufacturing" id="manufacturing" placeholder="Manufacturing Company"/>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" name="submit"  class="form-submit" value="Add New Airplane"/>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+<!--    Add New Airport-->
+<div id="addairport" class="collapse" >
+    <form action="/addairport" method="post" >
+        <h2 class="form-title">Add New Airport</h2>
+        <div class="form-group">
+            <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="city" id="city" placeholder="Your city"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-input" name="country" id="country" placeholder="Your country"/>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" name="submit"  class="form-submit" value="Add New Airport"/>
+        </div>
+    </form>
+</div>
+
+
+
+
+<!--    View frequent customers-->
+<!--    View Earned Revenue-->
+<!--    View Earned Revenue by travel class-->
+<!--    View Top destinations-->
+
+
+{% endblock %}
